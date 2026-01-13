@@ -51,14 +51,17 @@ dependencyResolutionManagement {
                 "spring-cloud-dependencies", "org.springframework.cloud", "spring-cloud-dependencies"
             ).version(providers.gradleProperty("spring-cloud.version").get())
 
+            // JUnit Dependencies (BOM)
+            library(
+                "junit-bom",
+                "org.junit",
+                "junit-bom"
+            ).version(providers.gradleProperty("junit.version").get())
+
             // Libraries
             library("druid", "com.alibaba", "druid").version("1.2.20")
 
             library("h2", "com.h2database:h2:1.4.200")
-
-            library("junit-platform-launcher", "org.junit.platform:junit-platform-launcher:1.10.2")
-
-            library("junit-jupiter-engine", "org.junit.jupiter:junit-jupiter-engine:5.10.2")
 
             library("logback-classic", "ch.qos.logback:logback-classic:1.2.12")
 
