@@ -77,9 +77,7 @@ public abstract class AbstractStatementFilter extends FilterAdapter {
             DruidDataSource druidDataSource = (DruidDataSource) dataSource;
             this.validationSQL = druidDataSource.getValidationQuery();
         }
-        if (logger.isTraceEnabled()) {
-            logger.trace("DataSourceProxy({}) was initialized with validation SQL : {}", this.dataSource, this.validationSQL);
-        }
+        logger.trace("DataSourceProxy({}) was initialized with validation SQL : {}", this.dataSource, this.validationSQL);
     }
 
     @Override
@@ -158,13 +156,7 @@ public abstract class AbstractStatementFilter extends FilterAdapter {
             failure = e;
             throw wrap(e, SQLException.class);
         } finally {
-            if (logger.isTraceEnabled()) {
-                if (result != null) {
-                    logger.trace("Execute statement [value : {} , resource name : '{}'] : {}", statement.getLastExecuteSql(), resourceName, result);
-                } else if (failure != null) {
-                    logger.trace("It's failed to execute Statement[value : {} , resource name : '{}'] : {}", statement.getLastExecuteSql(), resourceName, failure);
-                }
-            }
+            logger.trace("Execute statement [value : {} , resource name : '{}'] : {}", statement.getLastExecuteSql(), resourceName, result, failure);
             afterExecute(statement, resourceName, result, failure);
         }
         return result;
@@ -177,8 +169,7 @@ public abstract class AbstractStatementFilter extends FilterAdapter {
      * @param resourceName the resource name
      * @throws Throwable if any error
      */
-    protected void beforeExecute(StatementProxy statement, String resourceName) throws Throwable {
-    }
+    protected abstract void beforeExecute(StatementProxy statement, String resourceName) throws Throwable;
 
     /**
      * Execute after call of intercepted method.
@@ -188,8 +179,7 @@ public abstract class AbstractStatementFilter extends FilterAdapter {
      * @param result       the result of intercepted method
      * @param failure      the failure of intercepted method
      */
-    protected void afterExecute(StatementProxy statement, String resourceName, Object result, Throwable failure) {
-    }
+    protected abstract void afterExecute(StatementProxy statement, String resourceName, Object result, Throwable failure);
 
     /**
      * Build resource name

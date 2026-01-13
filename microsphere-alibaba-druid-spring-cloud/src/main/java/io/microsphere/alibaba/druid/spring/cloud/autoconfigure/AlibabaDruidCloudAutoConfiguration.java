@@ -35,6 +35,7 @@ import static io.microsphere.alibaba.druid.constants.PropertyConstants.ALIBABA_D
 import static io.microsphere.collection.ListUtils.newArrayList;
 import static io.microsphere.collection.SetUtils.of;
 import static io.microsphere.constants.SymbolConstants.DOT;
+import static io.microsphere.spring.beans.BeanUtils.isBeanPresent;
 import static java.util.Collections.emptyList;
 
 /**
@@ -73,7 +74,7 @@ public class AlibabaDruidCloudAutoConfiguration {
         public HasFeatures alibabaDruidFeatures(ListableBeanFactory beanFactory) {
             List<NamedFeature> namedFeatures = newArrayList(typeFeatures.size());
             for (Class<?> type : typeFeatures) {
-                if (BeanUtils.isBeanPresent(beanFactory, type)) {
+                if (isBeanPresent(beanFactory, type)) {
                     String name = ALIBABA_DRUID_FEATURE_PREFIX + type.getSimpleName();
                     namedFeatures.add(new NamedFeature(name, type));
                 }
