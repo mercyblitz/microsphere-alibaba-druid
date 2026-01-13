@@ -29,7 +29,8 @@ import static io.microsphere.alibaba.druid.spring.boot.AlibabaDruidProperties.PR
 import static io.microsphere.constants.PropertyConstants.ENABLED_PROPERTY_NAME;
 
 /**
- * The {@link @ConditionalOnProperty} variant for Alibaba Druid : "microsphere.spring.boot.alibaba.druid.enabled" .
+ * The {@link ConditionalOnProperty @ConditionalOnProperty} variant for Alibaba Druid :
+ * "microsphere.spring.boot.alibaba.druid.enabled" .
  *
  * @author <a href="mailto:mercyblitz@gmail.com">Mercy<a/>
  * @see ConditionalOnProperty
