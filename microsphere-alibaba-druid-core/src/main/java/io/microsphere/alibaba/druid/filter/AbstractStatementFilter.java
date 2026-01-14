@@ -206,7 +206,7 @@ public abstract class AbstractStatementFilter extends FilterAdapter {
         return resourceName;
     }
 
-    private String buildResourceName(SQLStatement sqlStatement) {
+    protected String buildResourceName(SQLStatement sqlStatement) {
         try {
             if (sqlStatement instanceof SQLSelectStatement) {
                 return buildResourceName((SQLSelectStatement) sqlStatement);
@@ -223,27 +223,24 @@ public abstract class AbstractStatementFilter extends FilterAdapter {
         return null;
     }
 
-    private String buildResourceName(SQLSelectStatement selectStatement) {
+    protected String buildResourceName(SQLSelectStatement selectStatement) {
         SQLSelect sqlSelect = selectStatement.getSelect();
         SQLSelectQueryBlock sqlSelectQueryBlock = sqlSelect.getFirstQueryBlock();
-        if (sqlSelectQueryBlock == null) {
-            return null;
-        }
         SQLTableSource sqlTableSource = sqlSelectQueryBlock.getFrom();
         return "SELECT " + sqlTableSource.computeAlias();
     }
 
-    private String buildResourceName(SQLUpdateStatement updateStatement) {
-        SQLTableSource sqlTableSource = updateStatement.getFrom();
+    protected String buildResourceName(SQLUpdateStatement updateStatement) {
+        SQLTableSource sqlTableSource = updateStatement.getTableSource();
         return "UPDATE " + sqlTableSource.computeAlias();
     }
 
-    private String buildResourceName(SQLInsertStatement insertStatement) {
+    protected String buildResourceName(SQLInsertStatement insertStatement) {
         SQLExprTableSource sqlTableSource = insertStatement.getTableSource();
         return "INSERT " + sqlTableSource.computeAlias();
     }
 
-    private String buildResourceName(SQLDeleteStatement deleteStatement) {
+    protected String buildResourceName(SQLDeleteStatement deleteStatement) {
         SQLTableSource sqlTableSource = deleteStatement.getTableSource();
         return "DELETE " + sqlTableSource.computeAlias();
     }
