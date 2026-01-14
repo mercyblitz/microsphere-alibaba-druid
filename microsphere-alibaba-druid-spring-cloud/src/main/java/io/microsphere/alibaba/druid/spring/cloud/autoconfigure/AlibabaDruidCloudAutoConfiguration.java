@@ -33,7 +33,7 @@ import java.util.Set;
 import static io.microsphere.alibaba.druid.constants.PropertyConstants.ALIBABA_DRUID_PROPERTY_NAME_PREFIX;
 import static io.microsphere.collection.ListUtils.newArrayList;
 import static io.microsphere.collection.SetUtils.of;
-import static io.microsphere.constants.SymbolConstants.DOT;
+import static io.microsphere.constants.SymbolConstants.DOT_CHAR;
 import static io.microsphere.spring.beans.BeanUtils.isBeanPresent;
 import static java.util.Collections.emptyList;
 
@@ -69,12 +69,11 @@ public class AlibabaDruidCloudAutoConfiguration {
             List<NamedFeature> namedFeatures = newArrayList(typeFeatures.size());
             for (Class<?> type : typeFeatures) {
                 if (isBeanPresent(beanFactory, type)) {
-                    String name = ALIBABA_DRUID_PROPERTY_NAME_PREFIX + DOT + type.getSimpleName();
+                    String name = ALIBABA_DRUID_PROPERTY_NAME_PREFIX + DOT_CHAR + type.getSimpleName();
                     namedFeatures.add(new NamedFeature(name, type));
                 }
             }
             return new HasFeatures(emptyList(), namedFeatures);
         }
-
     }
 }
