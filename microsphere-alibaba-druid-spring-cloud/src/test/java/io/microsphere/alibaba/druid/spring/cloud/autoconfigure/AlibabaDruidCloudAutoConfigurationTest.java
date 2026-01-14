@@ -19,10 +19,12 @@ package io.microsphere.alibaba.druid.spring.cloud.autoconfigure;
 import com.alibaba.druid.filter.Filter;
 import com.alibaba.druid.pool.DruidDataSource;
 import io.microsphere.alibaba.druid.filter.LoggingStatementFilter;
+import io.microsphere.alibaba.druid.spring.cloud.autoconfigure.AlibabaDruidCloudAutoConfiguration.FeaturesConfiguration;
 import io.microsphere.alibaba.druid.test.spring.AbstractDruidSpringTest;
 import io.microsphere.alibaba.druid.test.spring.DruidDataSourceTestConfiguration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.client.actuator.HasFeatures;
@@ -58,10 +60,13 @@ public class AlibabaDruidCloudAutoConfigurationTest extends AbstractDruidSpringT
     @Autowired
     private Map<String, HasFeatures> hasFeaturesMap;
 
+    @Autowired
+    private FeaturesConfiguration featuresConfiguration;
+
     @Test
     public void test() {
-        assertTrue(hasFeaturesMap.size() > 0);
-        HasFeatures hadFeatures = hasFeaturesMap.get("alibabaDruidFeatures");
+        assertTrue(this.hasFeaturesMap.size() > 0);
+        HasFeatures hadFeatures = this.hasFeaturesMap.get("alibabaDruidFeatures");
         assertNotNull(hadFeatures);
 
         List<NamedFeature> namedFeatures = hadFeatures.getNamedFeatures();
@@ -69,6 +74,10 @@ public class AlibabaDruidCloudAutoConfigurationTest extends AbstractDruidSpringT
 
         assertNamedFeature(namedFeatures, 0, "microsphere.alibaba.druid.DruidDataSource", DruidDataSource.class);
         assertNamedFeature(namedFeatures, 1, "microsphere.alibaba.druid.Filter", Filter.class);
+
+        HasFeatures hasFeatures = this.featuresConfiguration.alibabaDruidFeatures(new DefaultListableBeanFactory());
+        assertTrue(hasFeatures.getAbstractFeatures().isEmpty());
+        assertTrue(hasFeatures.getNamedFeatures().isEmpty());
     }
 
     private void assertNamedFeature(List<NamedFeature> namedFeatures, int index, String name, Class<?> type) {
