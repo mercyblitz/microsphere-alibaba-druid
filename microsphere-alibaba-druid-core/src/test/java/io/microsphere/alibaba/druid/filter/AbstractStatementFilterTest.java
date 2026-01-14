@@ -20,6 +20,8 @@ package io.microsphere.alibaba.druid.filter;
 
 import com.alibaba.druid.proxy.jdbc.DataSourceProxy;
 import com.alibaba.druid.proxy.jdbc.StatementProxy;
+import com.alibaba.druid.sql.ast.SQLStatement;
+import com.alibaba.druid.sql.ast.statement.SQLSelectStatement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +30,7 @@ import java.sql.SQLException;
 import static io.microsphere.util.ArrayUtils.ofArray;
 import static java.lang.ClassLoader.getSystemClassLoader;
 import static java.lang.reflect.Proxy.newProxyInstance;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,5 +75,11 @@ class AbstractStatementFilterTest {
         assertThrows(SQLException.class, () -> this.filter.execute(statementProxy, () -> {
             throw new RuntimeException("For testing");
         }));
+    }
+
+    @Test
+    void testBuildResourceNameOnNullPointerException() {
+        SQLStatement sqlSelectStatement = new SQLSelectStatement();
+        assertNull(this.filter.buildResourceName(sqlSelectStatement));
     }
 }
