@@ -25,7 +25,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static io.microsphere.alibaba.druid.spring.boot.AlibabaDruidProperties.PREFIX;
+import static io.microsphere.alibaba.druid.constants.PropertyConstants.ALIBABA_DRUID_PROPERTY_NAME_PREFIX;
 import static io.microsphere.constants.PropertyConstants.ENABLED_PROPERTY_NAME;
 
 /**
@@ -40,6 +40,6 @@ import static io.microsphere.constants.PropertyConstants.ENABLED_PROPERTY_NAME;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@ConditionalOnProperty(prefix = PREFIX, name = ENABLED_PROPERTY_NAME, matchIfMissing = true)
+@ConditionalOnProperty(prefix = ALIBABA_DRUID_PROPERTY_NAME_PREFIX, name = ENABLED_PROPERTY_NAME, matchIfMissing = true)
 public @interface ConditionalOnAlibabaDruidEnabled {
 }

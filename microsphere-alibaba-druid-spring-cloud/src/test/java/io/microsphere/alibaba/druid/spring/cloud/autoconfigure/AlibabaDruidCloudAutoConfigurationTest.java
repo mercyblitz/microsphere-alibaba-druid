@@ -48,9 +48,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         AlibabaDruidCloudAutoConfigurationTest.class
 }, webEnvironment = SpringBootTest.WebEnvironment.NONE,
         properties = {
-                "microsphere.spring.boot.alibaba.druid.enabled=true",
+                "microsphere.alibaba.druid.enabled=true",
                 "spring.cloud.features.enabled=true",
-                "microsphere.spring.boot.alibaba.druid.filter.classes=io.microsphere.alibaba.druid.filter.LoggingStatementFilter"
+                "microsphere.alibaba.druid.filter.classes=io.microsphere.alibaba.druid.filter.LoggingStatementFilter"
         })
 @EnableAutoConfiguration
 public class AlibabaDruidCloudAutoConfigurationTest extends AbstractDruidSpringTest {
@@ -67,8 +67,8 @@ public class AlibabaDruidCloudAutoConfigurationTest extends AbstractDruidSpringT
         List<NamedFeature> namedFeatures = hadFeatures.getNamedFeatures();
         assertEquals(2, namedFeatures.size());
 
-        assertNamedFeature(namedFeatures, 0, "alibaba.druid.DruidDataSource", DruidDataSource.class);
-        assertNamedFeature(namedFeatures, 1, "alibaba.druid.Filter", Filter.class);
+        assertNamedFeature(namedFeatures, 0, "microsphere.alibaba.druid.DruidDataSource", DruidDataSource.class);
+        assertNamedFeature(namedFeatures, 1, "microsphere.alibaba.druid.Filter", Filter.class);
     }
 
     private void assertNamedFeature(List<NamedFeature> namedFeatures, int index, String name, Class<?> type) {
