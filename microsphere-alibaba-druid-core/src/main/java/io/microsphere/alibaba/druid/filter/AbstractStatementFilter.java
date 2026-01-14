@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.alibaba.druid.sql.SQLUtils.parseStatements;
+import static io.microsphere.collection.ListUtils.first;
 import static io.microsphere.logging.LoggerFactory.getLogger;
 import static io.microsphere.util.ExceptionUtils.wrap;
 
@@ -194,11 +195,8 @@ public abstract class AbstractStatementFilter extends FilterAdapter {
         }
         String dbType = dataSource.getDbType();
         List<SQLStatement> statementList = parseStatements(sql, dbType);
-        String resourceName = null;
-        if (statementList.size() > 0) {
-            SQLStatement sqlStatement = statementList.get(0);
-            resourceName = buildResourceName(sqlStatement);
-        }
+        SQLStatement sqlStatement = first(statementList);
+        String resourceName = buildResourceName(sqlStatement);
         if (resourceName == null) {
             logger.debug("The JDBC statement can't be recognized, sql : '{}' , dbType : '{}'", sql, dbType);
             resourceName = "UNRECOGNIZED";
