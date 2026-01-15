@@ -17,15 +17,27 @@ subprojects {
     apply(plugin = "signing")
 
     val mavenTaskName = "maven-${name}"
-    
+
     publishing {
         publications {
             create<MavenPublication>(mavenTaskName) {
 
                 from(components[componentName])
 
+                if (!isBom) {
+                    versionMapping {
+                        usage("java-api") {
+                            fromResolutionOf("runtimeClasspath")
+                        }
+                        usage("java-runtime") {
+                            fromResolutionResult()
+                        }
+                    }
+                }
+
                 pom {
                     groupId = "io.github.microsphere-projects"
+                    artifactId = project.name
                     name = project.name
                     description = project.name
                     version = ver
@@ -82,8 +94,7 @@ subprojects {
                 repositories {
                     maven {
                         name = "ossrh"
-                        val releasesRepoUrl =
-                            uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
+                        val releasesRepoUrl = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
                         val snapshotsRepoUrl = uri("https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots/")
                         url =
                             uri(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
