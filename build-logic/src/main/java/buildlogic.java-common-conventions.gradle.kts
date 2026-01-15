@@ -15,11 +15,13 @@ repositories {
     gradlePluginPortal()
 }
 
+val javaVersion: String = providers.environmentVariable("java.version").getOrElse("21")
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(javaVersion)
     }
     registerFeature("optional") {
         usingSourceSet(sourceSets["main"])
