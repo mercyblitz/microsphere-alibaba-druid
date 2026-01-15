@@ -3,13 +3,14 @@ plugins {
     `signing`
 }
 
-version = System.getProperty("revision", "0.0.1-SNAPSHOT")
+val ver = System.getProperty("revision", "0.0.1-SNAPSHOT")
 
 subprojects {
     val isBom = name.endsWith("-dependencies")
     val javaPlugin = if (isBom) "java-platform" else "java"
     val pkg = if (isBom) "pom" else "jar"
     val componentName = if (isBom) "javaPlatform" else "java"
+    version = ver
 
     apply(plugin = javaPlugin)
     apply(plugin = "maven-publish")
@@ -22,12 +23,14 @@ subprojects {
             create<MavenPublication>(mavenTaskName) {
 
                 from(components[componentName])
+                suppressPomMetadataWarningsFor("optionalApiElements")
+                suppressPomMetadataWarningsFor("optionalRuntimeElements")
 
                 pom {
                     groupId = "io.github.microsphere-projects"
                     name = project.name
                     description = project.name
-                    version = System.getProperty("revision", "0.0.1-SNAPSHOT")
+                    version = ver
                     packaging = pkg
                     url = "https://github.com/microsphere-projects/microsphere-alibaba-druid"
 
