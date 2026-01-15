@@ -24,14 +24,14 @@ subprojects {
 
                 from(components[componentName])
 
-                if (!isBom) {
-                    versionMapping {
+                versionMapping {
+                    if (!isBom) {
                         usage("java-api") {
                             fromResolutionOf("runtimeClasspath")
                         }
-                        usage("java-runtime") {
-                            fromResolutionResult()
-                        }
+                    }
+                    usage("java-runtime") {
+                        fromResolutionResult()
                     }
                 }
 
@@ -94,8 +94,10 @@ subprojects {
                 repositories {
                     maven {
                         name = "ossrh"
-                        val releasesRepoUrl = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
-                        val snapshotsRepoUrl = uri("https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots/")
+                        val releasesRepoUrl =
+                            uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
+                        val snapshotsRepoUrl =
+                            uri("https://ossrh-staging-api.central.sonatype.com/content/repositories/snapshots/")
                         url =
                             uri(if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl)
                         credentials {
