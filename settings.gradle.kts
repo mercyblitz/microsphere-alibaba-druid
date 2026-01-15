@@ -18,11 +18,15 @@ dependencyResolutionManagement {
 
             // Microsphere Stack Dependencies (BOM)
             library(
-                "microsphere-java-dependencies", "io.github.microsphere-projects", "microsphere-java-dependencies"
+                "microsphere-java-dependencies",
+                "io.github.microsphere-projects",
+                "microsphere-java-dependencies"
             ).version(providers.gradleProperty("microsphere-java-dependencies.version").get())
 
             library(
-                "microsphere-spring-dependencies", "io.github.microsphere-projects", "microsphere-spring-dependencies"
+                "microsphere-spring-dependencies",
+                "io.github.microsphere-projects",
+                "microsphere-spring-dependencies"
             ).version(providers.gradleProperty("microsphere-spring-dependencies.version").get())
 
             library(
@@ -44,24 +48,44 @@ dependencyResolutionManagement {
                 "spring-framework-bom"
             ).version(providers.gradleProperty("spring.version").get())
 
-            library("spring-boot-dependencies", "org.springframework.boot", "spring-boot-dependencies")
+            library(
+                "spring-boot-dependencies",
+                "org.springframework.boot",
+                "spring-boot-dependencies"
+            )
                 .version(providers.gradleProperty("spring-boot.version").get())
 
             library(
-                "spring-cloud-dependencies", "org.springframework.cloud", "spring-cloud-dependencies"
+                "spring-cloud-dependencies",
+                "org.springframework.cloud",
+                "spring-cloud-dependencies"
             ).version(providers.gradleProperty("spring-cloud.version").get())
 
+            // JUnit Dependencies (BOM)
+            library(
+                "junit-bom",
+                "org.junit",
+                "junit-bom"
+            ).version(providers.gradleProperty("junit.version").get())
+
             // Libraries
-            library("druid", "com.alibaba", "druid").version("1.2.20")
+            library(
+                "druid",
+                "com.alibaba",
+                "druid"
+            ).version(providers.gradleProperty("druid.version").get())
 
-            library("h2", "com.h2database:h2:1.4.200")
+            library(
+                "h2",
+                "com.h2database",
+                "h2"
+            ).version(providers.gradleProperty("h2.version").get())
 
-            library("junit-platform-launcher", "org.junit.platform:junit-platform-launcher:1.10.2")
-
-            library("junit-jupiter-engine", "org.junit.jupiter:junit-jupiter-engine:5.10.2")
-
-            library("logback-classic", "ch.qos.logback:logback-classic:1.2.12")
-
+            library(
+                "logback-classic",
+                "ch.qos.logback",
+                "logback-classic"
+            ).version(providers.gradleProperty("logback.version").get())
         }
     }
 }
