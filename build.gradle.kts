@@ -23,8 +23,6 @@ subprojects {
             create<MavenPublication>(mavenTaskName) {
 
                 from(components[componentName])
-                suppressPomMetadataWarningsFor("optionalApiElements")
-                suppressPomMetadataWarningsFor("optionalRuntimeElements")
 
                 pom {
                     groupId = "io.github.microsphere-projects"
