@@ -75,11 +75,18 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Spring Testing -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- Spring Boot Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
-            <optional>true</optional>
+            <scope>test</scope>
         </dependency>
 
         <!-- H2 -->
