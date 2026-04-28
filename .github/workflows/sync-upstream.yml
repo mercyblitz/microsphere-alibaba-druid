@@ -1,0 +1,62 @@
+# This workflow automatically syncs all branches with the upstream repository
+# every 5 minutes and can also be triggered manually.
+
+name: Sync Upstream
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync all branches from upstream
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote
+        run: git remote add upstream https://github.com/microsphere-projects/microsphere-alibaba-druid.git
+
+      - name: Fetch upstream
+        run: git fetch upstream
+
+      - name: Sync all upstream branches
+        run: |
+          failed_branches=()
+          for remote_ref in $(git branch); do
+            branch="$remote_ref"
+            echo "--- Syncing branch: $branch ---"
+            if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+              git checkout "$branch"
+            else
+              echo "Branch '$branch' does not exist in origin. Ignore it."
+            fi
+            if git merge --no-ff "refs/remotes/upstream/$branch" -m "chore: sync upstream $branch [skip ci]"; then
+              git push origin "$branch"
+              echo "Successfully synced '$branch'."
+            else
+              echo "::warning::Merge conflict on branch '$branch'. Aborting and skipping."
+              git merge --abort
+              failed_branches+=("$branch")
+            fi
+          done
+          if [ ${#failed_branches[@]} -gt 0 ]; then
+            echo "::error::The following branches had merge conflicts and were skipped: ${failed_branches[*]}"
+            exit 1
+          fi
