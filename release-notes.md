@@ -254,4 +254,18 @@ Full Changelog: [v0.1.15...v0.1.16](https://github.com/mercyblitz/your-repo/comp
 
 Checkout the [Full Changelog](https://example.com/changelog) for more details!
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-alibaba-druid/compare/0.1.18...0.1.19
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-alibaba-druid/compare/0.1.18...0.1.19## v0.1.20
+
+_Release notes generation failed. Raw commits since 0.1.19:_
+
+```
+7b3cf5e Update README.md
+c563cea Merge pull request #106 from mercyblitz/dev-1.x
+75e75dc Update AlibabaDruidTestExtension.java
+a805ffd Force field access in JUnit datasource injection
+cc503c8 Bump microsphere-spring-cloud to 0.1.25
+4e9cb6a chore: merge release-1.x into dev-1.x [skip ci]
+141891b chore: bump version to next patch after publishing 0.1.19
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-alibaba-druid/compare/0.1.19...0.1.20
