@@ -50,7 +50,6 @@ import static io.microsphere.alibaba.druid.test.AlibabaDruidTestUtils.loadProper
 import static io.microsphere.lang.function.Predicates.and;
 import static io.microsphere.lang.function.ThrowableSupplier.execute;
 import static io.microsphere.reflect.FieldUtils.findAllDeclaredFields;
-import static io.microsphere.reflect.FieldUtils.setFieldValue;
 import static io.microsphere.reflect.MethodUtils.getSignature;
 import static io.microsphere.util.ClassUtils.findAllClasses;
 import static io.microsphere.util.ClassUtils.getTypeName;
@@ -149,7 +148,7 @@ class AlibabaDruidTestExtension implements BeforeAllCallback, AfterAllCallback, 
     private void injectField(Field field, ExtensionContext context, @Nullable Object testInstance) throws Exception {
         boolean forClass = testInstance == null;
         DruidDataSource druidDataSource = getDruidDataSource(context, forClass, false);
-        setFieldValue(testInstance, field, druidDataSource);
+        setFieldValue(true, testInstance, field, druidDataSource);
     }
 
     /**
