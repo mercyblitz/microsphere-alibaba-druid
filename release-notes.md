@@ -268,4 +268,16 @@ cc503c8 Bump microsphere-spring-cloud to 0.1.25
 141891b chore: bump version to next patch after publishing 0.1.19
 ```
 
-**Full Changelog**: https://github.com/microsphere-projects/microsphere-alibaba-druid/compare/0.1.19...0.1.20
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-alibaba-druid/compare/0.1.19...0.1.20## v0.1.21
+
+_Release notes generation failed. Raw commits since 0.1.20:_
+
+```
+a23301a Update version numbers in README.md
+a0878ef Merge pull request #108 from mercyblitz/dev-1.x
+fb431e2 Bump microsphere-spring-cloud to 0.1.26
+a47df55 chore: merge release-1.x into dev-1.x [skip ci]
+feb25de chore: bump version to next patch after publishing 0.1.20
+```
+
+**Full Changelog**: https://github.com/microsphere-projects/microsphere-alibaba-druid/compare/0.1.20...0.1.21
